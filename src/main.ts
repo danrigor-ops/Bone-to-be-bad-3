@@ -43,6 +43,15 @@ const game = new Phaser.Game({
   banner: false,
   scene: [],
 });
+// Phaser caches the canvas position and only refreshes it on window resize. HUD bars above the
+// canvas change height (objective text, save warnings, phone toolbars), which moves the canvas
+// without a resize, so taps landed on the wrong tile. Refresh the cached bounds right before
+// Phaser reads each press (capture phase on window runs ahead of Phaser's canvas listeners).
+const refreshBounds = () => game.scale.updateBounds();
+for (const t of ['pointerdown', 'mousedown', 'touchstart']) {
+  window.addEventListener(t, refreshBounds, { capture: true, passive: true });
+}
+new ResizeObserver(refreshBounds).observe(document.getElementById('game')!);
 game.scene.add('boot', BootScene, true);
 game.events.once('texturesReady', () => {
   game.scene.add('world', WorldScene, true, { store });

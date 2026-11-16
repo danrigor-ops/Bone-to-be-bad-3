@@ -212,6 +212,8 @@ export class WorldScene extends Phaser.Scene {
       if (!path) {
         const ex = exitAt(s.location.id, tx, ty);
         if (ex?.blocked?.(s)) this.store.emit({ type: 'toast', text: ex.blocked(s)! });
+        // Tapped a wall, tree or water tile: walk next to it instead of ignoring the tap.
+        else if (!ex) path = pathToAdjacent(s, from, { x: tx, y: ty });
       }
     }
     if (!path) return;
