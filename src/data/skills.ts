@@ -108,15 +108,15 @@ export interface EnemyMove {
 
 export const AI_CYCLES: Record<string, EnemyMove[]> = {
   wisp_cycle: [
-    { name: 'Paper Cut', kind: 'physical', power: 1, target: 'lowest_hp', tell: 'Paper Cut → weakest hero' },
+    { name: 'Paper Talon', kind: 'physical', power: 1, target: 'lowest_hp', tell: 'Paper Talon → weakest hero' },
     { name: 'Stamp', kind: 'magical', power: 1.2, target: 'lowest_hp', tell: 'Stamp (magic) → weakest hero' },
   ],
   collector_cycle: [
     { name: 'Demand', kind: 'physical', power: 1.2, target: 'lowest_hp', tell: 'Demand → weakest hero' },
-    { name: 'Seize', kind: 'physical', power: 1.5, target: 'lowest_hp', tell: 'Seize (heavy) → weakest hero' },
+    { name: 'Gore', kind: 'physical', power: 1.5, target: 'lowest_hp', tell: 'Gore (heavy) → weakest hero' },
   ],
   mite_cycle: [
-    { name: 'Corrode', kind: 'physical', power: 0.9, target: 'highest_def', tell: 'Corrode → sturdiest hero' },
+    { name: 'Rusting Gaze', kind: 'physical', power: 0.9, target: 'highest_def', tell: 'Rusting Gaze → sturdiest hero' },
   ],
   engine_cycle: [
     { name: 'Audit', kind: 'magical', power: 0.8, target: 'all', tell: 'Audit (magic) → whole party' },

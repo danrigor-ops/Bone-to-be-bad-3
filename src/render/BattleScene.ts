@@ -3,6 +3,7 @@ import type { Store } from '../app/store';
 import { bus, view } from '../app/bus';
 import type { BattleActor, BattleState, GameState, HeroId } from '../core/types';
 import { HeroSprite } from './heroSprite';
+import { RES } from './art32';
 import { heroGear } from './gear';
 import { MAPS } from '../data/maps';
 import { currentActor } from '../systems/combat';
@@ -122,11 +123,12 @@ export class BattleScene extends Phaser.Scene {
       w = (a.id === 'brugg' ? 32 : 24) * sc;
       h = (a.id === 'brugg' ? 40 : 32) * sc;
     } else {
-      img = this.add.image(0, 0, ENEMY_TEX[a.defId] ?? 'wisp').setOrigin(0.5, 1).setScale(sc);
+      // Battle uses the high-detail mythic monster art (`<key>_hd`, drawn at RES×).
+      img = this.add.image(0, 0, `${ENEMY_TEX[a.defId] ?? 'wisp'}_hd`).setOrigin(0.5, 1).setScale(sc / RES);
       img.setFlipX(true);
       root.add(img);
-      w = img.width * sc;
-      h = img.height * sc;
+      w = (img.width * sc) / RES;
+      h = (img.height * sc) / RES;
     }
     const outline = this.add.rectangle(0, -h / 2, w + 8, h + 8).setStrokeStyle(3, 0xd4a944).setVisible(false);
     const label = this.add.text(0, -h - 22, a.name, {

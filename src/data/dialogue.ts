@@ -4,7 +4,7 @@ import { currentObjective, isCurrent, jobStatus, objectiveDone } from '../system
 
 export type Speaker =
   | '' | '#404' | 'Grib' | 'Brugg' | 'Hexa' | 'Pell' | 'Ribbs' | 'Marn' | 'Mott'
-  | 'Worker' | 'Villager' | 'Debt Collector' | 'Engine' | 'Clerk';
+  | 'Worker' | 'Villager' | 'Debt Minotaur' | 'Hydra' | 'Clerk';
 
 export interface Line { s: Speaker | string; t: string }
 
@@ -139,8 +139,8 @@ const N: DialogueNode[] = [
   {
     id: 'desk_job003_report',
     lines: [
-      { s: 'Hexa', t: 'The Foreclosure Engine is scrap. The letters are filed. The seal is… still unexplained.' },
-      { s: 'Grib', t: 'Ninety gold, though. Somebody’s been paying the Engine’s maintenance fund and it’s ours now.' },
+      { s: 'Hexa', t: 'The Foreclosure Hydra is down, all three heads. The letters are filed. The seal is… still unexplained.' },
+      { s: 'Grib', t: 'Ninety gold, though. Somebody’s been paying the Hydra’s feeding fund and it’s ours now.' },
       { s: 'Brugg', t: 'Dregswell gets to keep its choices. That’s the real pay.' },
       { s: '#404', t: 'Someone out there is paying people to be afraid of being free. I’d like to meet them. Briefly. Professionally.' },
       { s: 'Hexa', t: 'Then we keep the Bureau open. Procedure.' },
@@ -320,16 +320,16 @@ const N: DialogueNode[] = [
   {
     id: 'enforcer_early',
     lines: [
-      { s: 'Debt Collector', t: 'Move along. This is a lawful debt collection.' },
+      { s: 'Debt Minotaur', t: 'Move along. This is a lawful debt collection.' },
       { s: '#404', t: 'We’ll be back once we know what that means.' },
     ],
   },
   {
     id: 'enforcer_fight',
     lines: [
-      { s: 'Debt Collector', t: 'By order of the attached document, these workers owe forty years of rest to the mill.' },
+      { s: 'Debt Minotaur', t: 'By order of the attached document, these workers owe forty years of rest to the mill.' },
       { s: 'Hexa', t: 'That document is forged. I can see the eraser marks from here.' },
-      { s: 'Debt Collector', t: 'Then we’ll collect from you instead.' },
+      { s: 'Debt Minotaur', t: 'Then we’ll collect from you instead.' },
       { s: 'Brugg', t: 'Leave the workers out of it.' },
     ],
     choices: [
@@ -386,15 +386,15 @@ const N: DialogueNode[] = [
     ],
     effects: [{ objective: 'job002:inspect_crate' }],
     choices: [
-      { label: 'Fight the Invoice Swarm', effects: [{ battle: 'invoice_swarm' }] },
+      { label: 'Fight the Invoice Harpies', effects: [{ battle: 'invoice_swarm' }] },
       { label: 'Back away (fight later)' },
     ],
   },
   {
     id: 'crate_fight',
-    lines: [{ s: '', t: 'The Invoice Swarm hovers over the crate, stamping the air.' }],
+    lines: [{ s: '', t: 'The Invoice Harpies hovers over the crate, stamping the air.' }],
     choices: [
-      { label: 'Fight the Invoice Swarm', effects: [{ battle: 'invoice_swarm' }] },
+      { label: 'Fight the Invoice Harpies', effects: [{ battle: 'invoice_swarm' }] },
       { label: 'Not yet' },
     ],
   },
@@ -423,20 +423,20 @@ const N: DialogueNode[] = [
   { id: 'job002_chose_trace', lines: [{ s: 'Hexa', t: 'I’ll need red string. A great deal of red string.' }, { s: 'Grib', t: 'I know a guy.' }] },
   {
     id: 'salvage_locked',
-    lines: [{ s: '', t: 'A heap of rusted machine parts. Rust Mites nest in it. (Repeat Salvage opens after job 001.)' }],
+    lines: [{ s: '', t: 'A heap of rusted machine parts. Rust Basilisks nest in it. (Repeat Salvage opens after job 001.)' }],
   },
   {
     id: 'salvage_pile',
-    lines: [{ s: '', t: 'REPEAT SALVAGE (optional, repeatable): stir the pile to lure out one Rust Mite. Reward: 2 Scrap Iron and 1 Bone Chip. No gold or XP.' }],
+    lines: [{ s: '', t: 'REPEAT SALVAGE (optional, repeatable): stir the pile to lure out one Rust Basilisk. Reward: 2 Scrap Iron and 1 Bone Chip. No gold or XP.' }],
     choices: [
       { label: 'Repeat salvage', effects: [{ startSalvage: true }] },
       { label: 'Leave it' },
     ],
   },
-  { id: 'salvage_busy', lines: [{ s: '', t: 'A Rust Mite is already out of the pile, right next to it. Deal with that one first.' }] },
+  { id: 'salvage_busy', lines: [{ s: '', t: 'A Rust Basilisk is already out of the pile, right next to it. Deal with that one first.' }] },
   {
     id: 'salvage_mite',
-    lines: [{ s: '', t: 'A Rust Mite clicks at you, offended by your iron content.' }],
+    lines: [{ s: '', t: 'A Rust Basilisk hisses at you, offended by your iron content.' }],
     choices: [
       { label: 'Fight (salvage run)', effects: [{ battle: 'salvage' }] },
       { label: 'Not yet' },
@@ -450,14 +450,14 @@ const N: DialogueNode[] = [
       { s: '', t: 'The Ledger Cellar. Shelves of paperwork breathe softly in the dark.' },
       { s: 'Brugg', t: 'I said I’d go first. I’m going first.' },
     ],
-    effects: [{ objective: 'job003:enter_cellar' }, { summary: 'You entered the Ledger Cellar. Get past the Debt Collector.' }],
+    effects: [{ objective: 'job003:enter_cellar' }, { summary: 'You entered the Ledger Cellar. Get past the Debt Minotaur.' }],
   },
   {
     id: 'cellar_collector',
     lines: [
-      { s: 'Debt Collector', t: 'Restricted archive. Debts beyond this point.' },
+      { s: 'Debt Minotaur', t: 'Restricted archive. Debts beyond this point.' },
       { s: 'Brugg', t: 'We’re just going to look.' },
-      { s: 'Debt Collector', t: 'Looking is billable.' },
+      { s: 'Debt Minotaur', t: 'Looking is billable.' },
     ],
     choices: [
       { label: 'Fight', effects: [{ battle: 'cellar_entry' }] },
@@ -467,13 +467,13 @@ const N: DialogueNode[] = [
   { id: 'cellar_sign', lines: [{ s: '', t: 'A signpost: → STORE (optional, smells of rust). ↓ ARCHIVE (mandatory, smells of trouble).' }] },
   {
     id: 'store_mite',
-    lines: [{ s: '', t: 'A Rust Mite is gnawing on an old chest’s lock. Optional. It looks smug.' }],
+    lines: [{ s: '', t: 'A Rust Basilisk is coiled around an old chest, gnawing the lock. Optional. It looks smug.' }],
     choices: [
-      { label: 'Fight the Rust Mite', effects: [{ battle: 'cellar_optional' }] },
+      { label: 'Fight the Rust Basilisk', effects: [{ battle: 'cellar_optional' }] },
       { label: 'Leave it' },
     ],
   },
-  { id: 'chest_guarded', lines: [{ s: '', t: 'The Rust Mite is in the way of the chest.' }] },
+  { id: 'chest_guarded', lines: [{ s: '', t: 'The Rust Basilisk is in the way of the chest.' }] },
   {
     id: 'chest',
     lines: [{ s: '', t: 'The chest creaks open. Inside: 3 Scrap Iron, 1 Ghost Thread, 1 Bone Poultice.' }],
@@ -490,7 +490,7 @@ const N: DialogueNode[] = [
       { s: 'Grib', t: 'And they didn’t even itemise.' },
       { s: '', t: 'Obtained: Brokered Correspondence (key item, cannot be sold).' },
     ],
-    effects: [{ flag: 'correspondence', value: true }, { objective: 'job003:collect_correspondence' }, { summary: 'You found the broker’s correspondence. The Foreclosure Engine stirs.' }],
+    effects: [{ flag: 'correspondence', value: true }, { objective: 'job003:collect_correspondence' }, { summary: 'You found the broker’s correspondence. The Foreclosure Hydra stirs.' }],
   },
   { id: 'archive_desk_after', lines: [{ s: '', t: 'The rest of the letters are invoices for fear, itemised at last.' }] },
   { id: 'archive_desk_early', lines: [{ s: '', t: 'A desk buried in letters. You’ll need to be on the job to make sense of them.' }] },
@@ -502,7 +502,7 @@ const N: DialogueNode[] = [
   {
     id: 'engine_intro_public',
     lines: [
-      { s: 'Engine', t: 'PUBLIC DISCLOSURE DETECTED. REPUTATIONAL DAMAGE ASSESSED. FORECLOSING ON ALL PARTIES.' },
+      { s: 'Hydra', t: 'PUBLIC DISCLOSURE DETECTED. REPUTATIONAL DAMAGE ASSESSED. FORECLOSING ON ALL PARTIES.' },
       { s: 'Hexa', t: 'It heard about the crowd.' },
     ],
     next: 'engine_intro_common',
@@ -510,7 +510,7 @@ const N: DialogueNode[] = [
   {
     id: 'engine_intro_trace',
     lines: [
-      { s: 'Engine', t: 'UNSCHEDULED VISITORS. NO NOTICE RECEIVED. …WHO SENT YOU?' },
+      { s: 'Hydra', t: 'UNSCHEDULED VISITORS. NO NOTICE RECEIVED. …WHO SENT YOU?' },
       { s: '#404', t: 'Your employer’s handwriting, mostly.' },
     ],
     next: 'engine_intro_common',
@@ -522,15 +522,15 @@ const N: DialogueNode[] = [
       { s: 'Brugg', t: 'Everyone behind me.' },
     ],
     choices: [
-      { label: 'Fight the Foreclosure Engine', effects: [{ battle: 'foreclosure_boss' }] },
+      { label: 'Fight the Foreclosure Hydra', effects: [{ battle: 'foreclosure_boss' }] },
       { label: 'Not yet (prepare first)' },
     ],
   },
-  { id: 'engine_wreck', lines: [{ s: '', t: 'The Foreclosure Engine, silent. A stamp still twitches.' }] },
+  { id: 'engine_wreck', lines: [{ s: '', t: 'The Foreclosure Hydra, out cold. One head still twitches a stamp.' }] },
   {
     id: 'job003_closing',
     lines: [
-      { s: '', t: 'The Engine shudders and stops. Somewhere a bell rings for a debt that will never be collected.' },
+      { s: '', t: 'The Hydra’s three heads sag one by one. Somewhere a bell rings for a debt that will never be collected.' },
       { s: 'Hexa', t: '#404. Anything to say for the record?' },
     ],
     choices: [

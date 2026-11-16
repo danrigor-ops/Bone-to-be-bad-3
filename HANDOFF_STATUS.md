@@ -79,6 +79,15 @@ They are listed below.
 - Screen readers: labels, live regions and focus restoration are in place, but no assistive-technology testing has
   been done.
 
+## Changes after the first playtest (17 November 2026)
+- Taps landed on the wrong tile after the HUD changed height; fixed by refreshing the canvas bounds before each press.
+  Tapping a wall now walks next to it.
+- Enemies restyled as mythic monsters at Dennis's request, with the same ids, stats and AI: Paper Wisp → Invoice Harpy,
+  Debt Collector → Debt Minotaur, Rust Mite → Rust Basilisk, Foreclosure Engine → Foreclosure Hydra (one head per
+  move in its cycle). Content ids such as `foreclosure_engine` are unchanged so saves keep working.
+- The party and battle monsters use a new shaded, higher-detail sprite style (2× pixel density, light from the upper
+  left). NPCs, props and tiles still use the original low-resolution style.
+
 ## Known issues and prototype interpretations
 - On short landscape screens the battle stage drops to 1× sprites, and actor labels can overlap slightly.
 - On entering a map the three followers start stacked on #404 and spread out as you walk.

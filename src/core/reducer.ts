@@ -68,7 +68,7 @@ function applyEffect(s: GameState, e: Effect, ev: GameEvent[]) {
   } else if ('startSalvage' in e) {
     if (s.flags.salvage_open && !s.salvageActive) {
       s.salvageActive = true;
-      ev.push({ type: 'toast', text: 'A Rust Mite crawls out of the pile.' });
+      ev.push({ type: 'toast', text: 'A Rust Basilisk slithers out of the pile.' });
     }
   } else if ('chest' in e) {
     if (claimKey(s, `chest:${CONTENT.raw.optionalChest.id}`)) {
@@ -229,7 +229,7 @@ export function reduce(s0: GameState, cmd: Command): ReduceResult {
         s.battle = null;
         restParty(s);
         s.location = { ...SPAWN };
-        s.lastSummary = 'You withdrew from the Foreclosure Engine. It is still waiting in the archive.';
+        s.lastSummary = 'You withdrew from the Foreclosure Hydra. It is still waiting in the archive.';
         ev.push({ type: 'battleEnd' }, { type: 'travel', to: 'bureau' });
       } else {
         writeBack(s);

@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import type { Frame } from './sprites';
-import { heroTexKey } from './sprites';
+import { heroTexKey, RES } from './sprites';
 
 export interface Gear { weapon: string | null; head: string | null; body: string | null }
 
@@ -19,6 +19,8 @@ export class HeroSprite {
     this.body = scene.add.image(0, 0, heroTexKey(hero, 'old_coat', 0)).setOrigin(0.5, 1);
     this.head = scene.add.image(0, 0, heroTexKey(hero, 'old_cap', 0)).setOrigin(0.5, 1);
     this.weapon = scene.add.image(0, 0, heroTexKey(hero, 'old_blade', 0)).setOrigin(0.5, 1);
+    // Textures are drawn at RES× detail; scale the layers down so the footprint matches the tiles.
+    for (const img of [this.base, this.body, this.head, this.weapon]) img.setScale(1 / RES);
     this.container = scene.add.container(x, y, [this.base, this.body, this.head, this.weapon]);
   }
 

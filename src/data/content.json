@@ -579,7 +579,7 @@
   "enemies": [
     {
       "id": "paper_wisp",
-      "name": "Paper Wisp",
+      "name": "Invoice Harpy",
       "hp": 25,
       "attack": 7,
       "magic": 8,
@@ -589,7 +589,7 @@
     },
     {
       "id": "debt_collector",
-      "name": "Debt Collector",
+      "name": "Debt Minotaur",
       "hp": 55,
       "attack": 11,
       "magic": 4,
@@ -599,7 +599,7 @@
     },
     {
       "id": "rust_mite",
-      "name": "Rust Mite",
+      "name": "Rust Basilisk",
       "hp": 35,
       "attack": 9,
       "magic": 3,
@@ -609,7 +609,7 @@
     },
     {
       "id": "foreclosure_engine",
-      "name": "Foreclosure Engine",
+      "name": "Foreclosure Hydra",
       "hp": 230,
       "attack": 16,
       "magic": 14,

@@ -145,7 +145,7 @@ export const MAPS: Record<string, MapDef> = {
       { id: 'ledger', x: 10, y: 2, sprite: 'ledger', label: 'Wage ledger', kind: 'prop' },
       { id: 'signs', x: 4, y: 1, sprite: 'sign', label: 'Labour signs', kind: 'prop' },
       {
-        id: 'enforcers', x: 7, y: 6, sprite: 'collector', label: 'Debt Collector patrol', kind: 'marker',
+        id: 'enforcers', x: 7, y: 6, sprite: 'collector', label: 'Debt Minotaur patrol', kind: 'marker',
         visible: (s) => !objectiveDone(s, 'job001', 'win_enforcers') && jobStatus(s, 'job001') !== 'complete',
       },
       {
@@ -162,11 +162,11 @@ export const MAPS: Record<string, MapDef> = {
       { id: 'yard_resting', x: 4, y: 3, sprite: 'bench_rest', label: 'Worker on scheduled break', kind: 'npc', visible: (s) => res(s) === 'compact' },
       { id: 'crate', x: 12, y: 7, sprite: 'crate_seal', label: 'Delivery crate', kind: 'prop' },
       {
-        id: 'invoice_marker', x: 11, y: 7, sprite: 'wisp', label: 'Invoice Swarm', kind: 'marker',
+        id: 'invoice_marker', x: 11, y: 7, sprite: 'wisp', label: 'Invoice Harpies', kind: 'marker',
         visible: (s) => currentObjective(s, 'job002') === 'win_invoices',
       },
       { id: 'salvage_pile', x: 1, y: 8, sprite: 'scrap_pile', label: 'Salvage pile', kind: 'prop' },
-      { id: 'salvage_mite', x: 2, y: 8, sprite: 'mite', label: 'Rust Mite (salvage)', kind: 'marker', visible: (s) => s.salvageActive },
+      { id: 'salvage_mite', x: 2, y: 8, sprite: 'mite', label: 'Rust Basilisk (salvage)', kind: 'marker', visible: (s) => s.salvageActive },
     ],
   },
 
@@ -184,13 +184,13 @@ export const MAPS: Record<string, MapDef> = {
     exits: [
       { x: 4, y: 0, to: 'mill_yard', tx: 12, ty: 9, facing: 'up' },
       { x: 5, y: 0, to: 'mill_yard', tx: 12, ty: 9, facing: 'up' },
-      { x: 9, y: 3, to: 'cellar_store', tx: 1, ty: 3, facing: 'right', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Collector blocks the way.') },
-      { x: 9, y: 4, to: 'cellar_store', tx: 1, ty: 4, facing: 'right', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Collector blocks the way.') },
-      { x: 4, y: 6, to: 'cellar_archive', tx: 4, ty: 1, facing: 'down', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Collector blocks the way.') },
-      { x: 5, y: 6, to: 'cellar_archive', tx: 5, ty: 1, facing: 'down', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Collector blocks the way.') },
+      { x: 9, y: 3, to: 'cellar_store', tx: 1, ty: 3, facing: 'right', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Minotaur blocks the way.') },
+      { x: 9, y: 4, to: 'cellar_store', tx: 1, ty: 4, facing: 'right', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Minotaur blocks the way.') },
+      { x: 4, y: 6, to: 'cellar_archive', tx: 4, ty: 1, facing: 'down', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Minotaur blocks the way.') },
+      { x: 5, y: 6, to: 'cellar_archive', tx: 5, ty: 1, facing: 'down', blocked: (s) => (s.claimedRewards.includes('encounter:cellar_entry') ? null : 'The Debt Minotaur blocks the way.') },
     ],
     objects: [
-      { id: 'cellar_collector', x: 4, y: 4, sprite: 'collector', label: 'Debt Collector', kind: 'marker', visible: (s) => !s.claimedRewards.includes('encounter:cellar_entry') },
+      { id: 'cellar_collector', x: 4, y: 4, sprite: 'collector', label: 'Debt Minotaur', kind: 'marker', visible: (s) => !s.claimedRewards.includes('encounter:cellar_entry') },
       { id: 'cellar_sign', x: 7, y: 1, sprite: 'sign', label: 'Signpost', kind: 'prop' },
     ],
   },
@@ -211,7 +211,7 @@ export const MAPS: Record<string, MapDef> = {
       { x: 0, y: 4, to: 'cellar_entry', tx: 8, ty: 4, facing: 'left' },
     ],
     objects: [
-      { id: 'store_mite', x: 5, y: 4, sprite: 'mite', label: 'Rust Mite (optional)', kind: 'marker', visible: (s) => !s.claimedRewards.includes('encounter:cellar_optional') },
+      { id: 'store_mite', x: 5, y: 4, sprite: 'mite', label: 'Rust Basilisk (optional)', kind: 'marker', visible: (s) => !s.claimedRewards.includes('encounter:cellar_optional') },
       { id: 'chest', x: 6, y: 4, sprite: 'chest', label: 'Old chest', kind: 'prop', visible: (s) => !s.claimedRewards.includes('chest:cellar_chest') },
       { id: 'chest_open', x: 6, y: 4, sprite: 'chest_open', label: 'Open chest', kind: 'prop', visible: (s) => s.claimedRewards.includes('chest:cellar_chest') },
     ],
@@ -235,8 +235,8 @@ export const MAPS: Record<string, MapDef> = {
     objects: [
       { id: 'archive_desk', x: 2, y: 2, sprite: 'archive_desk', label: 'Archive desk', kind: 'prop' },
       { id: 'seal_mark', x: 8, y: 1, sprite: 'seal', label: 'Cracked-ring seal', kind: 'prop' },
-      { id: 'engine', x: 6, y: 4, sprite: 'engine', label: 'Foreclosure Engine', kind: 'marker', visible: (s) => !s.claimedRewards.includes('encounter:foreclosure_boss') },
-      { id: 'engine_wreck', x: 6, y: 4, sprite: 'engine_wreck', label: 'Silent engine', kind: 'prop', visible: (s) => s.claimedRewards.includes('encounter:foreclosure_boss') },
+      { id: 'engine', x: 6, y: 4, sprite: 'engine', label: 'Foreclosure Hydra', kind: 'marker', visible: (s) => !s.claimedRewards.includes('encounter:foreclosure_boss') },
+      { id: 'engine_wreck', x: 6, y: 4, sprite: 'engine_wreck', label: 'Fallen hydra', kind: 'prop', visible: (s) => s.claimedRewards.includes('encounter:foreclosure_boss') },
     ],
   },
 };

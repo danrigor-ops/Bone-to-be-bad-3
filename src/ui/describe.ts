@@ -1,7 +1,7 @@
 import { CONTENT, itemName } from '../core/content';
 import type { GameState, HeroId, ItemDef, Stats } from '../core/types';
 import { computeStats, equippedDefs, member, shortName } from '../systems/stats';
-import { ANCHORS, FRAMES, paint, heroTexKey, allTextureSpecs, type Canvasish } from '../render/sprites';
+import { ANCHORS, FRAMES, RES, paint, heroTexKey, allTextureSpecs, type Canvasish } from '../render/sprites';
 import { heroGear } from '../render/gear';
 
 export const EFFECT_TEXT: Record<string, string> = {
@@ -67,8 +67,10 @@ export function drawTexture(ctx: Canvasish, key: string, dx = 0, dy = 0) {
 export function heroPreview(s: GameState, hero: HeroId, scale = 4, override?: { slot: 'weapon' | 'head' | 'body'; app: string | null }): HTMLCanvasElement {
   const a = ANCHORS[hero];
   const c = document.createElement('canvas');
-  c.width = a.w * scale; c.height = a.h * scale;
-  c.style.width = `${a.w * scale}px`; c.style.height = `${a.h * scale}px`;
+  // Hero textures are drawn at RES× detail, so the preview shows them at scale / RES per texture pixel.
+  const k = scale / RES;
+  c.width = a.w * k; c.height = a.h * k;
+  c.style.width = `${a.w * k}px`; c.style.height = `${a.h * k}px`;
   c.style.imageRendering = 'pixelated';
   const small = document.createElement('canvas');
   small.width = a.w; small.height = a.h;
@@ -79,19 +81,19 @@ export function heroPreview(s: GameState, hero: HeroId, scale = 4, override?: { 
   for (const app of [g.body, g.head, g.weapon]) if (app) drawTexture(ctx, heroTexKey(hero, app, 0));
   const big = c.getContext('2d')!;
   big.imageSmoothingEnabled = false;
-  big.drawImage(small, 0, 0, a.w * scale, a.h * scale);
+  big.drawImage(small, 0, 0, a.w * k, a.h * k);
   c.setAttribute('role', 'img');
   c.setAttribute('aria-label', `${shortName(hero)} wearing ${[g.weapon, g.head, g.body].filter(Boolean).join(', ')}`);
   return c;
 }
 
 export function titleArt(scale = 3): HTMLCanvasElement {
-  const w = 120, hgt = 44;
+  const w = 120 * RES, hgt = 44 * RES;
   const small = document.createElement('canvas');
   small.width = w; small.height = hgt;
   const ctx = small.getContext('2d')!;
-  paint(ctx, [[0, 40, 120, 4, '#3d5233']], false);
-  const place: [HeroId, number, number][] = [['grib', 4, 10], ['c404', 30, 10], ['hexa', 56, 10], ['brugg', 82, 2]];
+  paint(ctx, [[0, 40 * RES, w, 4 * RES, '#3d5233']], false);
+  const place: [HeroId, number, number][] = [['grib', 8, 20], ['c404', 60, 16], ['hexa', 112, 16], ['brugg', 164, 0]];
   const gear: Record<string, string[]> = {
     c404: ['old_coat', 'old_cap', 'old_blade'], grib: ['old_coat', 'old_cap', 'shiv'],
     hexa: ['old_coat', 'old_cap', 'wand'], brugg: ['old_coat', 'old_cap', 'knuckles'],
@@ -101,11 +103,12 @@ export function titleArt(scale = 3): HTMLCanvasElement {
     for (const app of gear[hero]) drawTexture(ctx, heroTexKey(hero, app, 0), x, y);
   }
   const c = document.createElement('canvas');
-  c.width = w * scale; c.height = hgt * scale;
-  c.style.width = `${w * scale}px`; c.style.maxWidth = '90vw'; c.style.height = 'auto';
+  const k = Math.max(1, Math.round(scale / RES));
+  c.width = w * k; c.height = hgt * k;
+  c.style.width = `${(w * scale) / RES}px`; c.style.maxWidth = '90vw'; c.style.height = 'auto';
   const big = c.getContext('2d')!;
   big.imageSmoothingEnabled = false;
-  big.drawImage(small, 0, 0, w * scale, hgt * scale);
+  big.drawImage(small, 0, 0, w * k, hgt * k);
   c.setAttribute('role', 'img');
   c.setAttribute('aria-label', 'Grib, Skeleton #404, Hexa and Brugg standing together');
   return c;
