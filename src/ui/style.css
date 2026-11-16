@@ -154,3 +154,20 @@ textarea { width: 100%; min-height: 120px; font-family: ui-monospace, monospace;
 .title .foot { font-size: 13px; color: #a99fa8; max-width: 440px; line-height: 1.4; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* Short landscape screens: keep every battle command reachable without hiding the stage */
+.bottom { max-height: 62vh; overflow-y: auto; }
+@media (max-height: 480px) {
+  .top { padding: 3px 8px; }
+  .objective { font-size: 14px; }
+  .stage { min-height: 120px; }
+  .party .bar { display: none; }
+  .pm { font-size: 12px; padding: 1px 4px; }
+  .cmds { grid-template-columns: repeat(6, 1fr); gap: 4px; }
+  .cmds .btn small { display: none; }
+  .cmds .btn { padding: 4px; font-size: 14px; }
+  .hint { display: none; }
+  .dp, .prompt { margin-bottom: 3px; font-size: 13px; }
+  .dialogue { max-height: 85%; padding: 6px 10px; }
+  .dialogue .text { font-size: 16px; min-height: 0; }
+}

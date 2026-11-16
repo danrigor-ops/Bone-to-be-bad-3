@@ -379,7 +379,7 @@ export class Panels {
         ? h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap' },
           btn('Replace current progress with this save', () => this.doImport(), { cls: 'danger', key: 'import-confirm' }),
           btn('Cancel', () => { L.confirm = null; this.render(); }, { key: 'import-cancel' }))
-        : btn('Check & import…', () => this.checkImport(), { key: 'import', disabled: !L.importText }),
+        : btn('Check & import…', () => this.checkImport(), { key: 'import' }),
       h('h3', null, 'Danger zone'),
       L.confirm === 'reset'
         ? h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap' },
@@ -393,6 +393,7 @@ export class Panels {
 
   private checkImport() {
     const L = this.local;
+    if (!L.importText.trim()) { L.importMsg = 'Choose a save file or paste save text first.'; this.render(); return; }
     if (L.importText.length > MAX_IMPORT_BYTES) { L.importMsg = 'That save text is too large. Nothing was changed.'; this.render(); return; }
     const r = parseEnvelope(L.importText);
     if (!r.ok) { L.importMsg = `Import rejected: ${r.reason} Your current progress is unchanged.`; this.render(); return; }
