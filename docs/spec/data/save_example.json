@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "btbb3-slice-0.1",
+  "revision": 0,
+  "location": {
+    "id": "bureau",
+    "tileX": 4,
+    "tileY": 5,
+    "facing": "down"
+  },
+  "party": [
+    {
+      "characterId": "c404",
+      "level": 1,
+      "xp": 0,
+      "hp": 60,
+      "mp": 24,
+      "equipment": {
+        "weapon": "c404_weapon_0001",
+        "head": "c404_head_0001",
+        "body": "c404_body_0001",
+        "accessory1": null,
+        "accessory2": null
+      }
+    },
+    {
+      "characterId": "grib",
+      "level": 1,
+      "xp": 0,
+      "hp": 48,
+      "mp": 18,
+      "equipment": {
+        "weapon": "grib_weapon_0001",
+        "head": "grib_head_0001",
+        "body": "grib_body_0001",
+        "accessory1": null,
+        "accessory2": null
+      }
+    },
+    {
+      "characterId": "brugg",
+      "level": 1,
+      "xp": 0,
+      "hp": 90,
+      "mp": 18,
+      "equipment": {
+        "weapon": "brugg_weapon_0001",
+        "head": "brugg_head_0001",
+        "body": "brugg_body_0001",
+        "accessory1": null,
+        "accessory2": null
+      }
+    },
+    {
+      "characterId": "hexa",
+      "level": 1,
+      "xp": 0,
+      "hp": 50,
+      "mp": 32,
+      "equipment": {
+        "weapon": "hexa_weapon_0001",
+        "head": "hexa_head_0001",
+        "body": "hexa_body_0001",
+        "accessory1": null,
+        "accessory2": null
+      }
+    }
+  ],
+  "inventory": {
+    "gold": 30,
+    "stacks": {
+      "poultice": 3,
+      "ether": 2
+    },
+    "equipmentInstances": [
+      {
+        "instanceId": "c404_weapon_0001",
+        "definitionId": "old_blade",
+        "rank": 0
+      },
+      {
+        "instanceId": "c404_head_0001",
+        "definitionId": "old_cap",
+        "rank": 0
+      },
+      {
+        "instanceId": "c404_body_0001",
+        "definitionId": "old_coat",
+        "rank": 0
+      },
+      {
+        "instanceId": "grib_weapon_0001",
+        "definitionId": "shiv",
+        "rank": 0
+      },
+      {
+        "instanceId": "grib_head_0001",
+        "definitionId": "old_cap",
+        "rank": 0
+      },
+      {
+        "instanceId": "grib_body_0001",
+        "definitionId": "old_coat",
+        "rank": 0
+      },
+      {
+        "instanceId": "brugg_weapon_0001",
+        "definitionId": "knuckles",
+        "rank": 0
+      },
+      {
+        "instanceId": "brugg_head_0001",
+        "definitionId": "old_cap",
+        "rank": 0
+      },
+      {
+        "instanceId": "brugg_body_0001",
+        "definitionId": "old_coat",
+        "rank": 0
+      },
+      {
+        "instanceId": "hexa_weapon_0001",
+        "definitionId": "wand",
+        "rank": 0
+      },
+      {
+        "instanceId": "hexa_head_0001",
+        "definitionId": "old_cap",
+        "rank": 0
+      },
+      {
+        "instanceId": "hexa_body_0001",
+        "definitionId": "old_coat",
+        "rank": 0
+      }
+    ]
+  },
+  "questState": {},
+  "flags": {},
+  "claimedRewards": [],
+  "salvageRunIndex": 0,
+  "dialogue": null,
+  "battle": null,
+  "rngState": 404031,
+  "settings": {
+    "music": true,
+    "sfx": true,
+    "reducedMotion": false,
+    "instantText": false,
+    "theme": "classic_bone"
+  },
+  "lastSummary": "The Bureau has opened. Read the first job at the desk."
+}

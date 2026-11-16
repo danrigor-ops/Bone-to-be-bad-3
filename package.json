@@ -1,0 +1,23 @@
+{
+  "name": "bone-to-be-bad-3",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Bone to Be Bad III: No Rest for the Wicked — playable vertical slice",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "validate:content": "vitest run tests/content.test.ts"
+  },
+  "dependencies": {
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "7.3.8",
+    "vitest": "5.1.0"
+  }
+}

@@ -1,0 +1,31 @@
+Handoff-only validation — 15 November 2026
+PASS: item IDs unique
+PASS: party IDs unique
+PASS: recipe IDs unique
+PASS: job IDs unique
+PASS: enemy IDs unique
+PASS: encounter IDs unique
+PASS: recipe references: recipe_grievance_cleaver
+PASS: recipe references: recipe_union_hat
+PASS: recipe references: recipe_salvage_shiv
+PASS: recipe references: recipe_riveted_knuckles
+PASS: recipe references: recipe_focus_charm
+PASS: recipe references: recipe_funeral_coat
+PASS: recipe references: recipe_clause_wand
+PASS: recipe references: recipe_warranty_ring
+PASS: job references: job001
+PASS: job references: job002
+PASS: job references: job003
+PASS: encounter references: yard_enforcers
+PASS: encounter references: invoice_swarm
+PASS: encounter references: cellar_entry
+PASS: encounter references: cellar_optional
+PASS: encounter references: foreclosure_boss
+PASS: encounter references: salvage
+PASS: quest dependencies acyclic
+PASS: starter equipment instances valid
+PASS: starter loadout references valid
+PASS: guaranteed rewards afford all four signature recipes without optional drops (before other spending)
+PASS: recipe costs and quantities valid
+
+Not run: game compilation, runtime combat tests, browser/touch playtests, measured playtime. No game source exists in this specification package. Claude must implement and verify these.
