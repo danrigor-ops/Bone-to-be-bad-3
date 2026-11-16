@@ -3,6 +3,7 @@
 // shows them at full detail. Provisional stand-in art, generated in code.
 import { C } from './palette';
 import { Grid, M, flat, type Mat } from './pixel32';
+import { HERO_ART } from './heroArt';
 import type { Canvasish, Frame, TexSpec } from './sprites';
 
 /** Texture pixels per world pixel for the party and battle monsters. */
@@ -18,104 +19,57 @@ export interface Anchor {
   big?: boolean;
 }
 
-export const ANCHORS: Record<string, Anchor> = {
-  c404: { w: 48, h: 64, head: { x: 15, y: 2, w: 18 }, torso: { x: 15, y: 22, w: 18, h: 18 }, hand: { x: 35, y: 43 }, raised: { x: 36, y: 12 } },
-  grib: { w: 48, h: 64, head: { x: 14, y: 14, w: 20 }, torso: { x: 15, y: 31, w: 18, h: 15 }, hand: { x: 35, y: 43 }, raised: { x: 35, y: 25 } },
-  hexa: { w: 48, h: 64, head: { x: 11, y: 13, w: 26 }, torso: { x: 16, y: 28, w: 16, h: 24 }, hand: { x: 36, y: 46 }, raised: { x: 36, y: 23 } },
-  brugg: { w: 64, h: 80, head: { x: 20, y: 5, w: 24 }, torso: { x: 12, y: 26, w: 40, h: 30 }, hand: { x: 56, y: 57 }, raised: { x: 56, y: 10 }, big: true },
+/** Walk frames hop up one pixel; the attack frame lunges forward. */
+const bob = (f: Frame) => (f === 1 || f === 2 ? -1 : 0);
+const LUNGE = 2;
+
+// Canvas size per hero; the art is centred and stands on the bottom row.
+const CANVAS: Record<string, { w: number; h: number }> = {
+  c404: { w: 48, h: 64 }, grib: { w: 48, h: 64 }, hexa: { w: 48, h: 64 }, brugg: { w: 64, h: 80 },
+};
+// Where the head (or Hexa's hat brim), torso and right hand sit in each piece of art, as fractions
+// of the art's own width and height. Gear layers are placed from these.
+const FIT: Record<string, { head: [number, number, number]; torso: [number, number, number, number]; hand: [number, number] }> = {
+  c404: { head: [0.22, 0.0, 0.56], torso: [0.1, 0.2, 0.8, 0.27], hand: [0.86, 0.6] },
+  grib: { head: [0.28, 0.02, 0.44], torso: [0.3, 0.43, 0.4, 0.26], hand: [0.78, 0.7] },
+  hexa: { head: [0.3, 0.12, 0.4], torso: [0.28, 0.38, 0.44, 0.36], hand: [0.76, 0.64] },
+  brugg: { head: [0.33, 0.0, 0.34], torso: [0.16, 0.24, 0.68, 0.4], hand: [0.9, 0.7] },
 };
 
-const bob = (f: Frame) => (f === 1 || f === 2 ? 2 : 0);
-const lift = (f: Frame, side: 0 | 1) => ((f === 1 && side === 0) || (f === 2 && side === 1) ? 2 : 0);
-const black = flat(C.black);
-
-function skeleton(g: Grid, f: Frame) {
-  const u = bob(f), raised = f === 3;
-  g.line(20, 44, 20, 60 - lift(f, 0), 3, M.bone).line(28, 44, 28, 60 - lift(f, 1), 3, M.bone);
-  g.rect(17, 61 - lift(f, 0), 6, 2, M.boneShade).rect(26, 61 - lift(f, 1), 6, 2, M.boneShade);
-  g.ellipse(24, 42 + u, 7, 3, M.boneShade);
-  g.rect(23, 22 + u, 3, 20, M.boneShade);
-  g.ellipse(24, 30 + u, 9, 8, M.bone);
-  g.line(15, 25 + u, 13, 41 + u, 3, M.bone).ellipse(13, 43 + u, 2, 2, M.boneShade);
-  if (raised) g.line(33, 25 + u, 36, 14 + u, 3, M.bone).ellipse(36, 12 + u, 2, 2, M.boneShade);
-  else g.line(33, 25 + u, 35, 41 + u, 3, M.bone).ellipse(35, 43 + u, 2, 2, M.boneShade);
-  g.rect(22, 19 + u, 4, 4, M.boneShade);
-  g.ellipse(24, 11 + u, 9, 9, M.bone).rect(18, 15 + u, 12, 4, M.bone).ellipse(24, 19 + u, 5, 2, M.boneShade);
-  g.ellipse(20, 12 + u, 2, 2, black).ellipse(28, 12 + u, 2, 2, black);
-  g.dots([
-    [20, 12 + u, 1, 1, C.violetLight], [28, 12 + u, 1, 1, C.violetLight],
-    [17, 9 + u, 6, 1, C.boneDark], [25, 9 + u, 6, 1, C.boneDark], // one heavy, dry brow line
-    [23, 15 + u, 2, 2, C.black],
-    [20, 18 + u, 8, 1, C.boneDark], [21, 19 + u, 1, 1, C.boneDark], [23, 19 + u, 1, 1, C.boneDark], [25, 19 + u, 1, 1, C.boneDark], [27, 19 + u, 1, 1, C.boneDark],
-  ]);
-  for (const ry of [25, 28, 31, 34]) g.dots([[16, ry + u, 6, 1, C.boneDark], [27, ry + u, 6, 1, C.boneDark]]);
+function artOrigin(hero: string) {
+  const art = HERO_ART[hero], c = CANVAS[hero];
+  return { ox: Math.floor((c.w - art.w) / 2), oy: c.h - art.h };
 }
 
-function goblin(g: Grid, f: Frame) {
-  const u = bob(f), raised = f === 3;
-  g.line(20, 46, 20, 57 - lift(f, 0), 3, M.goblinDark).line(28, 46, 28, 57 - lift(f, 1), 3, M.goblinDark);
-  g.rect(17, 57 - lift(f, 0), 6, 3, M.brownDark).rect(26, 57 - lift(f, 1), 6, 3, M.brownDark);
-  g.line(15, 34 + u, 13, 43 + u, 3, M.goblin).ellipse(13, 45 + u, 2, 2, M.goblin);
-  if (raised) g.line(33, 34 + u, 35, 27 + u, 3, M.goblin).ellipse(35, 25 + u, 2, 2, M.goblin);
-  else g.line(33, 34 + u, 35, 41 + u, 3, M.goblin).ellipse(35, 43 + u, 2, 2, M.goblin);
-  g.ellipse(24, 39 + u, 9, 8, M.brown);
-  g.rect(16, 42 + u, 17, 2, M.brownDark).rect(27, 43 + u, 5, 4, M.gold);
-  g.dots([[23, 42 + u, 3, 2, C.gold], [18, 35 + u, 1, 6, C.iron], [20, 35 + u, 1, 5, C.ironDark]]);
-  g.ellipse(24, 31 + u, 9, 3, M.teal);
-  g.poly([[15, 19 + u], [2, 13 + u], [15, 26 + u]], M.goblin).poly([[33, 19 + u], [46, 13 + u], [33, 26 + u]], M.goblin);
-  g.ellipse(24, 22 + u, 10, 8, M.goblin);
-  g.ellipse(20, 21 + u, 2, 2, flat(C.yellow)).ellipse(28, 21 + u, 2, 2, flat(C.yellow));
-  g.ellipse(24, 25 + u, 1, 2, M.goblinDark);
-  g.dots([
-    [20, 21 + u, 1, 2, C.black], [28, 21 + u, 1, 2, C.black],
-    [7, 17 + u, 5, 1, C.goblinDark], [36, 17 + u, 5, 1, C.goblinDark],
-    [19, 27 + u, 10, 1, C.goblinDark], [21, 28 + u, 1, 1, C.white], [26, 28 + u, 1, 1, C.white],
-  ]);
-}
+export const ANCHORS: Record<string, Anchor> = Object.fromEntries(Object.keys(CANVAS).map((hero) => {
+  const art = HERO_ART[hero], c = CANVAS[hero], f = FIT[hero];
+  const { ox, oy } = artOrigin(hero);
+  const X = (fx: number) => Math.round(ox + fx * art.w), Y = (fy: number) => Math.round(oy + fy * art.h);
+  const hand = { x: X(f.hand[0]), y: Y(f.hand[1]) };
+  return [hero, {
+    w: c.w, h: c.h,
+    head: { x: X(f.head[0]), y: Y(f.head[1]), w: Math.max(10, Math.round(f.head[2] * art.w)) },
+    torso: { x: X(f.torso[0]), y: Y(f.torso[1]), w: Math.round(f.torso[2] * art.w), h: Math.round(f.torso[3] * art.h) },
+    hand,
+    raised: { x: hand.x + LUNGE, y: hand.y - 2 },
+    big: hero === 'brugg',
+  } satisfies Anchor];
+}));
 
-function witch(g: Grid, f: Frame) {
-  const u = bob(f), raised = f === 3;
-  g.rect(17, 59, 6, 3, M.black).rect(26, 59, 6, 3, M.black);
-  g.poly([[13, 60], [35, 60], [31, 28 + u], [17, 28 + u]], M.robe);
-  g.poly([[21, 60], [27, 60], [26, 32 + u], [22, 32 + u]], M.robeDark);
-  g.line(17, 30 + u, 12, 43 + u, 4, M.robe).ellipse(12, 46 + u, 2, 2, M.skin);
-  if (raised) g.line(31, 30 + u, 36, 26 + u, 4, M.robe).ellipse(36, 23 + u, 2, 2, M.skin);
-  else g.line(31, 30 + u, 36, 43 + u, 4, M.robe).ellipse(36, 46 + u, 2, 2, M.skin);
-  g.ellipse(24, 29 + u, 6, 2, M.violet);
-  g.rect(16, 17 + u, 4, 11, M.hair).rect(28, 17 + u, 4, 11, M.hair);
-  g.ellipse(24, 22 + u, 6, 6, M.skin);
-  g.dots([
-    [21, 22 + u, 2, 1, C.black], [26, 22 + u, 2, 1, C.black],
-    [20, 20 + u, 3, 1, C.charcoal], [25, 20 + u, 3, 1, C.charcoal], [22, 19 + u, 1, 1, C.charcoal], [25, 19 + u, 1, 1, C.charcoal],
-    [23, 26 + u, 3, 1, C.skinDark],
-  ]);
-  g.ellipse(24, 16 + u, 15, 2, M.robeDark);
-  g.poly([[15, 15 + u], [33, 15 + u], [27, 3 + u], [24, 2 + u]], M.robe);
-  g.poly([[24, 3 + u], [27, 2 + u], [32, 0 + u], [27, 5 + u]], M.robe);
-  g.dots([[19, 11 + u, 11, 2, C.violet], [23, 11 + u, 2, 2, C.gold]]);
+function drawArt(ctx: Canvasish, hero: string, f: Frame) {
+  const art = HERO_ART[hero];
+  const { ox, oy } = artOrigin(hero);
+  const dx = ox + (f === 3 ? LUNGE : 0), dy = oy + bob(f);
+  const A = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  art.rows.forEach((row, y) => {
+    for (let x = 0; x < row.length; x++) {
+      const ch = row[x];
+      if (ch === '.') continue;
+      ctx.fillStyle = art.pal[A.indexOf(ch)];
+      ctx.fillRect(dx + x, dy + y, 1, 1);
+    }
+  });
 }
-
-function ogre(g: Grid, f: Frame) {
-  const u = bob(f), raised = f === 3;
-  g.rect(20, 60, 9, 16 - lift(f, 0), M.ogreDark).rect(36, 60, 9, 16 - lift(f, 1), M.ogreDark);
-  g.rect(18, 76 - lift(f, 0), 13, 3, M.brownDark).rect(34, 76 - lift(f, 1), 13, 3, M.brownDark);
-  g.rect(17, 54 + u, 31, 8, M.brown);
-  g.ellipse(32, 40 + u, 20, 15, M.ogre).ellipse(32, 44 + u, 11, 9, M.belly);
-  g.line(14, 30 + u, 8, 53 + u, 8, M.ogre).ellipse(8, 57 + u, 4, 4, M.ogreDark);
-  if (raised) g.line(50, 30 + u, 56, 14 + u, 8, M.ogre).ellipse(56, 10 + u, 4, 4, M.ogreDark);
-  else g.line(50, 30 + u, 56, 53 + u, 8, M.ogre).ellipse(56, 57 + u, 4, 4, M.ogreDark);
-  g.ellipse(19, 15 + u, 3, 4, M.ogre).ellipse(45, 15 + u, 3, 4, M.ogre);
-  g.ellipse(32, 16 + u, 12, 11, M.ogre);
-  g.ellipse(32, 19 + u, 3, 2, M.ogreDark);
-  g.poly([[27, 24 + u], [30, 24 + u], [28, 19 + u]], M.bone).poly([[34, 24 + u], [37, 24 + u], [36, 19 + u]], M.bone);
-  g.dots([
-    [24, 11 + u, 16, 1, C.ogreDark],
-    [26, 14 + u, 3, 3, C.black], [35, 14 + u, 3, 3, C.black], [26, 14 + u, 1, 1, C.white], [35, 14 + u, 1, 1, C.white],
-    [27, 24 + u, 10, 1, C.ogreDark], [31, 46 + u, 2, 1, C.ogreDark], [17, 54 + u, 31, 1, C.brownDark],
-  ]);
-}
-
-const BASE: Record<string, (g: Grid, f: Frame) => void> = { c404: skeleton, grib: goblin, hexa: witch, brugg: ogre };
 
 function hand(hero: string, f: Frame) {
   const a = ANCHORS[hero];
@@ -137,7 +91,8 @@ function head(g: Grid, hero: string, f: Frame, app: string) {
 function body(g: Grid, hero: string, f: Frame, app: string) {
   const a = ANCHORS[hero], u = bob(f);
   const t = { ...a.torso, y: a.torso.y + u };
-  const panel = Math.max(6, Math.floor(t.w / 2) - 2);
+  // Open coats: narrow side panels so the character art underneath stays visible.
+  const panel = Math.max(3, Math.round(t.w * 0.22));
   if (app === 'old_coat') {
     const col: Mat = hero === 'c404' ? M.coat : M.brownDark;
     const len = t.h + 4;
@@ -208,7 +163,7 @@ export function heroSpecs32(appearances: readonly string[]): TexSpec[] {
   for (const hero of Object.keys(ANCHORS)) {
     const a = ANCHORS[hero];
     for (const f of FRAMES) {
-      out.push(spec(heroTexKey(hero, 'base', f), a.w, a.h, (g) => BASE[hero](g, f)));
+      out.push({ key: heroTexKey(hero, 'base', f), w: a.w, h: a.h, draw: (ctx) => drawArt(ctx, hero, f) });
       for (const app of appearances) {
         const kind = LAYER_KIND[app];
         out.push(spec(heroTexKey(hero, app, f), a.w, a.h, (g) => (kind === 'head' ? head : kind === 'body' ? body : weapon)(g, hero, f, app)));

@@ -85,7 +85,10 @@ They are listed below.
 - Enemies restyled as mythic monsters at Dennis's request, with the same ids, stats and AI: Paper Wisp → Invoice Harpy,
   Debt Collector → Debt Minotaur, Rust Mite → Rust Basilisk, Foreclosure Engine → Foreclosure Hydra (one head per
   move in its cycle). Content ids such as `foreclosure_engine` are unchanged so saves keep working.
-- The party and battle monsters use a new shaded, higher-detail sprite style (2× pixel density, light from the upper
+- The party now uses Dennis's own generated character art (originals in the project files under
+  `bone3/art-source/`), converted with `tools/import_hero_art.py`. Gear layers are fitted to it in `src/render/art32.ts`.
+  Walk frames are a one-pixel hop and the attack frame is a short lunge, since there is one pose per character.
+- Battle monsters use a new shaded, higher-detail sprite style (2× pixel density, light from the upper
   left). NPCs, props and tiles still use the original low-resolution style.
 
 ## Known issues and prototype interpretations

@@ -7,7 +7,7 @@ commissioned music.
 
 | Group | Texture keys | Size | Notes |
 | --- | --- | --- | --- |
-| Hero bases | `{c404,grib,hexa,brugg}_base_{0..3}` | 48×64 (Brugg 64×80), shown at half scale in the world | Shaded high-detail style from `src/render/art32.ts` + `pixel32.ts`. Frames: 0 idle, 1–2 walk, 3 attack pose. Hurt flash is a tint |
+| Hero bases | `{c404,grib,hexa,brugg}_base_{0..3}` | 48×64 (Brugg 64×80), shown at half scale in the world | From Dennis's generated character art (`src/render/heroArt.ts`, made by `tools/import_hero_art.py`). Frames: 0 idle, 1–2 walk, 3 attack pose. Hurt flash is a tint |
 | Hero layers | `{hero}_{appearance}_{0..3}` for all 12 appearance keys | same as base | Per-character anchors (head, torso, hand) shared by every layer |
 | Appearance keys (from content.json) | `old_blade, shiv, knuckles, wand, old_cap, old_coat, grievance_cleaver, union_hat, funeral_coat, salvage_shiv, riveted_knuckles, clause_wand` | — | Validated at boot (`requiredAppearanceKeys`) and in content validation (`IMPLEMENTED_APPEARANCES`) |
 | NPCs | `pell, mott, marn, clerk, relief, crowd, crowd2, ribbs, worker_strike, worker_strike2` | 24×32 | |
