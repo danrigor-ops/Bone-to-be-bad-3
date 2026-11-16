@@ -1,0 +1,747 @@
+{
+  "contentVersion": "btbb3-slice-0.1",
+  "status": "prototype_defaults",
+  "items": [
+    {
+      "id": "scrap_iron",
+      "name": "Scrap Iron",
+      "kind": "material",
+      "source": "Repeat Salvage Run, material shop, jobs"
+    },
+    {
+      "id": "bone_chip",
+      "name": "Bone Chip",
+      "kind": "material",
+      "source": "Repeat Salvage Run, job 001"
+    },
+    {
+      "id": "rusted_blade",
+      "name": "Rusted Blade",
+      "kind": "material",
+      "source": "Guaranteed job 001; unique reward"
+    },
+    {
+      "id": "haunted_paperwork",
+      "name": "Haunted Paperwork",
+      "kind": "material",
+      "source": "Guaranteed jobs 001 and 002; finite"
+    },
+    {
+      "id": "foreman_badge",
+      "name": "Foreman’s Badge",
+      "kind": "material",
+      "source": "Guaranteed job 001; unique reward"
+    },
+    {
+      "id": "ghost_thread",
+      "name": "Ghost Thread",
+      "kind": "material",
+      "source": "Material shop, jobs 002/003"
+    },
+    {
+      "id": "worn_cloth",
+      "name": "Worn Ceremonial Cloth",
+      "kind": "material",
+      "source": "Guaranteed job 002; unique reward"
+    },
+    {
+      "id": "cracked_charm",
+      "name": "Cracked Charm",
+      "kind": "material",
+      "source": "Guaranteed job 003; unique reward"
+    },
+    {
+      "id": "slime_resin",
+      "name": "Slime Resin",
+      "kind": "material",
+      "source": "Material shop, job 003"
+    },
+    {
+      "id": "poultice",
+      "name": "Bone Poultice",
+      "kind": "consumable",
+      "effect": "heal_30",
+      "target": "living_ally",
+      "source": "Shop or job reward"
+    },
+    {
+      "id": "ether",
+      "name": "Small Ether",
+      "kind": "consumable",
+      "effect": "restore_mp_10",
+      "target": "living_ally",
+      "source": "Shop or job reward"
+    },
+    {
+      "id": "old_blade",
+      "name": "Old Boneblade",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "c404"
+      ],
+      "stats": {
+        "attack": 2
+      },
+      "primaryStat": "attack",
+      "upgradable": true,
+      "appearance": "old_blade",
+      "effects": []
+    },
+    {
+      "id": "shiv",
+      "name": "Bent Shiv",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "grib"
+      ],
+      "stats": {
+        "attack": 2
+      },
+      "primaryStat": "attack",
+      "upgradable": true,
+      "appearance": "shiv",
+      "effects": []
+    },
+    {
+      "id": "knuckles",
+      "name": "Worn Knuckles",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "brugg"
+      ],
+      "stats": {
+        "attack": 2
+      },
+      "primaryStat": "attack",
+      "upgradable": true,
+      "appearance": "knuckles",
+      "effects": []
+    },
+    {
+      "id": "wand",
+      "name": "School Wand",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "hexa"
+      ],
+      "stats": {
+        "magic": 2
+      },
+      "primaryStat": "magic",
+      "upgradable": true,
+      "appearance": "wand",
+      "effects": []
+    },
+    {
+      "id": "old_cap",
+      "name": "Old Cap",
+      "kind": "equipment",
+      "slot": "head",
+      "eligible": [
+        "all"
+      ],
+      "stats": {
+        "defence": 1
+      },
+      "primaryStat": "defence",
+      "upgradable": true,
+      "appearance": "old_cap",
+      "effects": []
+    },
+    {
+      "id": "old_coat",
+      "name": "Patched Coat",
+      "kind": "equipment",
+      "slot": "body",
+      "eligible": [
+        "all"
+      ],
+      "stats": {
+        "defence": 2
+      },
+      "primaryStat": "defence",
+      "upgradable": true,
+      "appearance": "old_coat",
+      "effects": []
+    },
+    {
+      "id": "grievance_cleaver",
+      "name": "Grievance Cleaver",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "c404"
+      ],
+      "stats": {
+        "attack": 3,
+        "magic": 1
+      },
+      "primaryStat": "attack",
+      "upgradable": true,
+      "appearance": "grievance_cleaver",
+      "effects": [
+        "curse_damage_20"
+      ]
+    },
+    {
+      "id": "union_hat",
+      "name": "Union-Issue Hard Hat",
+      "kind": "equipment",
+      "slot": "head",
+      "eligible": [
+        "all"
+      ],
+      "stats": {
+        "defence": 3
+      },
+      "primaryStat": "defence",
+      "upgradable": true,
+      "appearance": "union_hat",
+      "effects": [
+        "protect_self_20"
+      ]
+    },
+    {
+      "id": "funeral_coat",
+      "name": "Secondhand Funeral Coat",
+      "kind": "equipment",
+      "slot": "body",
+      "eligible": [
+        "all"
+      ],
+      "stats": {
+        "magic": 3,
+        "defence": -2
+      },
+      "primaryStat": "defence",
+      "upgradable": true,
+      "appearance": "funeral_coat",
+      "effects": [
+        "curse_duration_plus_1"
+      ]
+    },
+    {
+      "id": "warranty_ring",
+      "name": "Questionable Warranty Ring",
+      "kind": "equipment",
+      "slot": "accessory",
+      "eligible": [
+        "all"
+      ],
+      "stats": {},
+      "primaryStat": null,
+      "upgradable": false,
+      "appearance": null,
+      "effects": [
+        "fatal_once"
+      ]
+    },
+    {
+      "id": "focus_charm",
+      "name": "Focus Charm",
+      "kind": "equipment",
+      "slot": "accessory",
+      "eligible": [
+        "all"
+      ],
+      "stats": {},
+      "primaryStat": null,
+      "upgradable": false,
+      "appearance": null,
+      "effects": [
+        "mp_plus_4"
+      ]
+    },
+    {
+      "id": "salvage_shiv",
+      "name": "Salvage Shiv",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "grib"
+      ],
+      "stats": {
+        "attack": 4
+      },
+      "primaryStat": "attack",
+      "upgradable": true,
+      "appearance": "salvage_shiv",
+      "effects": []
+    },
+    {
+      "id": "riveted_knuckles",
+      "name": "Riveted Knuckles",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "brugg"
+      ],
+      "stats": {
+        "attack": 4
+      },
+      "primaryStat": "attack",
+      "upgradable": true,
+      "appearance": "riveted_knuckles",
+      "effects": []
+    },
+    {
+      "id": "clause_wand",
+      "name": "Clause Wand",
+      "kind": "equipment",
+      "slot": "weapon",
+      "eligible": [
+        "hexa"
+      ],
+      "stats": {
+        "magic": 4
+      },
+      "primaryStat": "magic",
+      "upgradable": true,
+      "appearance": "clause_wand",
+      "effects": []
+    }
+  ],
+  "party": [
+    {
+      "id": "c404",
+      "name": "Skeleton #404",
+      "baseStats": {
+        "maxHp": 60,
+        "maxMp": 24,
+        "attack": 9,
+        "magic": 13,
+        "defence": 6,
+        "speed": 9
+      },
+      "starterWeapon": "old_blade",
+      "skills": [
+        "hex_mark",
+        "bone_verdict"
+      ]
+    },
+    {
+      "id": "grib",
+      "name": "Grib",
+      "baseStats": {
+        "maxHp": 48,
+        "maxMp": 18,
+        "attack": 12,
+        "magic": 5,
+        "defence": 4,
+        "speed": 14
+      },
+      "starterWeapon": "shiv",
+      "skills": [
+        "cheap_shot",
+        "pilfer"
+      ]
+    },
+    {
+      "id": "brugg",
+      "name": "Brugg",
+      "baseStats": {
+        "maxHp": 90,
+        "maxMp": 18,
+        "attack": 13,
+        "magic": 4,
+        "defence": 10,
+        "speed": 5
+      },
+      "starterWeapon": "knuckles",
+      "skills": [
+        "stand_behind_me",
+        "heavy_hand"
+      ]
+    },
+    {
+      "id": "hexa",
+      "name": "Hexa",
+      "baseStats": {
+        "maxHp": 50,
+        "maxMp": 32,
+        "attack": 5,
+        "magic": 15,
+        "defence": 5,
+        "speed": 10
+      },
+      "starterWeapon": "wand",
+      "skills": [
+        "cinder_clause",
+        "patchwork"
+      ]
+    }
+  ],
+  "recipes": [
+    {
+      "id": "recipe_grievance_cleaver",
+      "outputItem": "grievance_cleaver",
+      "quantity": 1,
+      "gold": 20,
+      "materials": {
+        "rusted_blade": 1,
+        "haunted_paperwork": 2
+      },
+      "unlockAfter": "job001"
+    },
+    {
+      "id": "recipe_union_hat",
+      "outputItem": "union_hat",
+      "quantity": 1,
+      "gold": 15,
+      "materials": {
+        "scrap_iron": 3,
+        "foreman_badge": 1
+      },
+      "unlockAfter": "job001"
+    },
+    {
+      "id": "recipe_salvage_shiv",
+      "outputItem": "salvage_shiv",
+      "quantity": 1,
+      "gold": 15,
+      "materials": {
+        "scrap_iron": 3,
+        "bone_chip": 2
+      },
+      "unlockAfter": "job001"
+    },
+    {
+      "id": "recipe_riveted_knuckles",
+      "outputItem": "riveted_knuckles",
+      "quantity": 1,
+      "gold": 15,
+      "materials": {
+        "scrap_iron": 4,
+        "bone_chip": 1
+      },
+      "unlockAfter": "job001"
+    },
+    {
+      "id": "recipe_focus_charm",
+      "outputItem": "focus_charm",
+      "quantity": 1,
+      "gold": 15,
+      "materials": {
+        "bone_chip": 2,
+        "haunted_paperwork": 1
+      },
+      "unlockAfter": "job002"
+    },
+    {
+      "id": "recipe_funeral_coat",
+      "outputItem": "funeral_coat",
+      "quantity": 1,
+      "gold": 20,
+      "materials": {
+        "ghost_thread": 3,
+        "worn_cloth": 1
+      },
+      "unlockAfter": "job002"
+    },
+    {
+      "id": "recipe_clause_wand",
+      "outputItem": "clause_wand",
+      "quantity": 1,
+      "gold": 15,
+      "materials": {
+        "scrap_iron": 2,
+        "ghost_thread": 2
+      },
+      "unlockAfter": "job002"
+    },
+    {
+      "id": "recipe_warranty_ring",
+      "outputItem": "warranty_ring",
+      "quantity": 1,
+      "gold": 20,
+      "materials": {
+        "cracked_charm": 1,
+        "slime_resin": 2
+      },
+      "unlockAfter": "job003"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "job001",
+      "name": "The Dead Refuse to Work",
+      "requires": [],
+      "objectives": [
+        "accept",
+        "talk_mayor",
+        "talk_foreman",
+        "inspect_ledger",
+        "win_enforcers",
+        "choose_resolution",
+        "report_bureau"
+      ],
+      "encounters": [
+        "yard_enforcers"
+      ],
+      "choiceFlag": "labor_resolution",
+      "choices": [
+        "charter",
+        "compact"
+      ],
+      "reward": {
+        "gold": 70,
+        "items": {
+          "scrap_iron": 6,
+          "bone_chip": 3,
+          "rusted_blade": 1,
+          "haunted_paperwork": 2,
+          "foreman_badge": 1,
+          "poultice": 2
+        }
+      },
+      "unlocks": [
+        "workshop",
+        "salvage",
+        "job002"
+      ]
+    },
+    {
+      "id": "job002",
+      "name": "A Receipt for Disaster",
+      "requires": [
+        "job001"
+      ],
+      "objectives": [
+        "accept",
+        "inspect_noticeboard",
+        "talk_foreman",
+        "inspect_crate",
+        "win_invoices",
+        "choose_evidence",
+        "report_bureau"
+      ],
+      "encounters": [
+        "invoice_swarm"
+      ],
+      "choiceFlag": "evidence_handling",
+      "choices": [
+        "public",
+        "trace"
+      ],
+      "reward": {
+        "gold": 60,
+        "items": {
+          "ghost_thread": 4,
+          "worn_cloth": 1,
+          "haunted_paperwork": 2,
+          "ether": 2
+        }
+      },
+      "unlocks": [
+        "cellar_key_flag",
+        "job003"
+      ]
+    },
+    {
+      "id": "job003",
+      "name": "Terms and Conditions Apply",
+      "requires": [
+        "job002"
+      ],
+      "objectives": [
+        "accept",
+        "enter_cellar",
+        "win_cellar_entry",
+        "collect_correspondence",
+        "win_boss",
+        "closing_response",
+        "report_bureau"
+      ],
+      "encounters": [
+        "cellar_entry",
+        "foreclosure_boss"
+      ],
+      "choiceFlag": null,
+      "choices": [],
+      "reward": {
+        "gold": 90,
+        "items": {
+          "scrap_iron": 4,
+          "slime_resin": 3,
+          "cracked_charm": 1,
+          "ghost_thread": 2
+        }
+      },
+      "unlocks": [
+        "slice_complete"
+      ]
+    }
+  ],
+  "enemies": [
+    {
+      "id": "paper_wisp",
+      "name": "Invoice Harpy",
+      "hp": 25,
+      "attack": 7,
+      "magic": 8,
+      "defence": 2,
+      "speed": 8,
+      "ai": "wisp_cycle"
+    },
+    {
+      "id": "debt_collector",
+      "name": "Debt Minotaur",
+      "hp": 55,
+      "attack": 11,
+      "magic": 4,
+      "defence": 6,
+      "speed": 7,
+      "ai": "collector_cycle"
+    },
+    {
+      "id": "rust_mite",
+      "name": "Rust Basilisk",
+      "hp": 35,
+      "attack": 9,
+      "magic": 3,
+      "defence": 5,
+      "speed": 6,
+      "ai": "mite_cycle"
+    },
+    {
+      "id": "foreclosure_engine",
+      "name": "Foreclosure Hydra",
+      "hp": 230,
+      "attack": 16,
+      "magic": 14,
+      "defence": 8,
+      "speed": 6,
+      "ai": "engine_cycle"
+    }
+  ],
+  "encounters": [
+    {
+      "id": "yard_enforcers",
+      "location": "mill_yard",
+      "enemies": [
+        "debt_collector",
+        "paper_wisp"
+      ],
+      "xpPerHero": 5,
+      "rewardPolicy": "once"
+    },
+    {
+      "id": "invoice_swarm",
+      "location": "mill_yard",
+      "enemies": [
+        "paper_wisp",
+        "paper_wisp"
+      ],
+      "xpPerHero": 5,
+      "rewardPolicy": "once"
+    },
+    {
+      "id": "cellar_entry",
+      "location": "cellar_entry",
+      "enemies": [
+        "debt_collector"
+      ],
+      "xpPerHero": 5,
+      "rewardPolicy": "once"
+    },
+    {
+      "id": "cellar_optional",
+      "location": "cellar_store",
+      "enemies": [
+        "rust_mite"
+      ],
+      "xpPerHero": 5,
+      "rewardPolicy": "once"
+    },
+    {
+      "id": "foreclosure_boss",
+      "location": "cellar_archive",
+      "enemies": [
+        "foreclosure_engine"
+      ],
+      "xpPerHero": 15,
+      "rewardPolicy": "once"
+    },
+    {
+      "id": "salvage",
+      "location": "mill_yard",
+      "enemies": [
+        "rust_mite"
+      ],
+      "xpPerHero": 0,
+      "rewardPolicy": "explicit_run_id"
+    }
+  ],
+  "locations": [
+    "bureau",
+    "village",
+    "mill_yard",
+    "cellar_entry",
+    "cellar_store",
+    "cellar_archive"
+  ],
+  "initialGold": 30,
+  "initialItems": {
+    "poultice": 3,
+    "ether": 2
+  },
+  "upgradeCosts": [
+    {
+      "toRank": 1,
+      "gold": 10,
+      "items": {
+        "scrap_iron": 2
+      }
+    },
+    {
+      "toRank": 2,
+      "gold": 20,
+      "items": {
+        "scrap_iron": 4
+      }
+    },
+    {
+      "toRank": 3,
+      "gold": 30,
+      "items": {
+        "scrap_iron": 6
+      }
+    }
+  ],
+  "salvageReward": {
+    "gold": 0,
+    "items": {
+      "scrap_iron": 2,
+      "bone_chip": 1
+    }
+  },
+  "optionalChest": {
+    "id": "cellar_chest",
+    "items": {
+      "scrap_iron": 3,
+      "ghost_thread": 1,
+      "poultice": 1
+    }
+  },
+  "shopBasePrices": {
+    "poultice": 10,
+    "ether": 15,
+    "scrap_iron": 5,
+    "ghost_thread": 8,
+    "slime_resin": 8
+  },
+  "consumableRules": {
+    "heal_30": {
+      "restoreHp": 30,
+      "revive": false
+    },
+    "restore_mp_10": {
+      "restoreMp": 10
+    }
+  },
+  "encounterLootNote": "Main encounter rewards are XP only; material and gold rewards belong to report-at-Bureau job claims. Pilfer is separate. Salvage/chest have their own explicit rewards. No duplicate per-enemy gold or XP."
+}

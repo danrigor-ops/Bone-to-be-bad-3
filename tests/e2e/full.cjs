@@ -1,0 +1,66 @@
+const { chromium } = require('playwright');
+const L = require('./lib.cjs');
+require('fs').mkdirSync('e2e-shots', { recursive: true });
+const BASE = process.env.BASE_URL || 'http://localhost:5173/';
+(async () => {
+  const [vpS, b1, b2] = process.argv.slice(2);
+  const vp = vpS.split('x').map(Number);
+  const tag = `${vpS}_${b1.split(' ')[0]}`;
+  const b = await chromium.launch();
+  const p = await b.newPage({ viewport: { width: vp[0], height: vp[1] } });
+  const errs = global.errs = [];
+  p.on('pageerror', (e) => errs.push(String(e)));
+  p.on('console', (m) => { if (m.type() === 'error') errs.push(m.text()); });
+  await p.goto(BASE);
+  await p.evaluate(() => localStorage.clear());
+  await p.reload(); await p.waitForTimeout(800);
+  await p.click('text=New Game'); await L.sleep(400);
+  await L.dialogue(p);
+  await L.talk(p, 'desk', ['Accept job 001']);
+  await L.goTo(p, 'village'); await L.talk(p, 'pell');
+  await L.goTo(p, 'mill_yard'); await L.talk(p, 'ribbs'); await L.talk(p, 'ledger');
+  await L.talk(p, 'enforcers', ['Fight']); await L.smartFight(p);
+  await L.dialogue(p, [b1]);
+  await L.goTo(p, 'bureau'); await L.talk(p, 'desk');
+  // job 002
+  await L.talk(p, 'desk', ['Accept job 002']);
+  await L.goTo(p, 'village');
+  await p.screenshot({ path: `e2e-shots/v1_${tag}.png` });
+  await L.talk(p, 'noticeboard');
+  await L.goTo(p, 'mill_yard'); await L.talk(p, 'ribbs');
+  await p.screenshot({ path: `e2e-shots/yard2_${tag}.png` });
+  await L.talk(p, 'crate', ['Fight']); await L.smartFight(p);
+  await L.dialogue(p, [b2]);
+  // salvage once
+  await L.talk(p, 'salvage_pile', ['Repeat salvage']);
+  await L.talk(p, 'salvage_mite', ['Fight']); await L.smartFight(p);
+  await L.goTo(p, 'bureau'); await L.talk(p, 'desk');
+  await p.screenshot({ path: `e2e-shots/bureau2_${tag}.png` });
+  // job 003
+  await L.talk(p, 'bench', ['Rest']);
+  await L.talk(p, 'desk', ['Accept job 003']);
+  await L.goTo(p, 'cellar_entry');
+  await L.talk(p, 'cellar_collector', ['Fight']); await L.smartFight(p);
+  await L.goTo(p, 'cellar_store');
+  await L.talk(p, 'store_mite', ['Fight']); await L.smartFight(p);
+  await L.talk(p, 'chest');
+  const chestGold = (await L.st(p)).claimedRewards.filter((k) => k.startsWith('chest')).length;
+  await L.talk(p, 'chest_open');
+  await L.goTo(p, 'cellar_archive');
+  await L.talk(p, 'archive_desk');
+  await L.talk(p, 'engine', ['Fight']);
+  await L.sleep(500);
+  await p.screenshot({ path: `e2e-shots/boss_${tag}.png` });
+  await L.smartFight(p);
+  await L.dialogue(p, ['Nobody']);
+  await L.goTo(p, 'bureau'); await L.talk(p, 'desk');
+  await p.click('[data-key="journal"]'); await L.sleep(300);
+  await p.screenshot({ path: `e2e-shots/journal_${tag}.png`, fullPage: false });
+  await p.click('[data-key="close"]');
+  const s = await L.st(p);
+  console.log(tag, 'complete:', s.flags.slice_complete, 'jobs:', Object.values(s.questState).map((q) => q.status).join(','), 'gold', s.inventory.gold, 'chestClaims', chestGold, 'claims', s.claimedRewards.join(' '));
+  // horizontal overflow check
+  const overflow = await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+  console.log('overflow', overflow, 'errors', errs);
+  await b.close();
+})().catch((e) => { console.error('FAIL', e.message, global.errs); process.exit(1); });
